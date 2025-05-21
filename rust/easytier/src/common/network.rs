@@ -16,7 +16,18 @@ struct InterfaceFilter {
     iface: NetworkInterface,
 }
 
-#[cfg(target_os = "android")]
+// Default implementation for InterfaceFilter
+// This ensures `filter_iface` is always available
+impl InterfaceFilter {
+    async fn filter_iface(&self) -> bool {
+        // You might want to implement a reasonable default filtering logic here,
+        // or a very permissive one if the OS-specific filters are meant to be stricter.
+        // For now, a permissive default that doesn't filter much:
+        !self.iface.is_loopback() && self.iface.is_up()
+    }
+}
+
+#[cfg(any(target_os = "android", target_os = "ios"))] // Android 或 iOS 平台下启用
 impl InterfaceFilter {
     async fn filter_iface(&self) -> bool {
         true
