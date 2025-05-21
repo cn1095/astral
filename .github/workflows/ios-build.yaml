@@ -35,8 +35,8 @@ jobs:
           brew install protobuf
           brew install ruby
           brew install cocoapods
-          export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
-          export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+          export LDFLAGS="$LDFLAGS -L/opt/homebrew/opt/ruby/lib"
+          export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/ruby/include"
 
       - name: 🐦 安装 Flutter
         run: |
